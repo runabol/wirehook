@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import { useEffect, useState } from "react";
 
 import {
   Sidebar,
@@ -8,71 +8,43 @@ import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarHeader,
-  SidebarInput,
 } from "@/components/ui/sidebar";
 import { formatTimestamp } from "@/lib/datetime";
 import { LoaderCircle } from "lucide-react";
 
-// This is sample data
-const data: any[] = [];
-// const data = [
-//   {
-//     "id": "req-1",
-//     "timestamp": "2024-12-24T12:34:56Z",
-//     "method": "GET",
-//     "path": "/users",
-//     "headers": {
-//       "Content-Type": "application/json",
-//       "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-//     },
-//     "body": {
-//       "firstName": "John",
-//       "lastName": "Doe",
-//       "email": "johndoe@example.com",
-//       "password": "securePassword123",
-//       "age": 30,
-//       "isSubscribed": true
-//     }
-//   },
-//   {
-//     "id": "req-2",
-//     "timestamp": "2024-12-24T12:34:56Z",
-//     "method": "POST",
-//     "path": "/users",
-//     "headers": {
-//       "Content-Type": "application/json",
-//       "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-//     },
-//     "body": {
-//       "firstName": "John",
-//       "lastName": "Doe",
-//       "email": "johndoe@example.com",
-//       "password": "securePassword123",
-//       "age": 30,
-//       "isSubscribed": true
-//     }
-//   },
-//   {
-//     "id": "req-3",
-//     "timestamp": "2024-12-24T12:34:56Z",
-//     "method": "PUT",
-//     "path": "/users",
-//     "headers": {
-//       "Content-Type": "application/json",
-//       "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-//     },
-//     "body": {
-//       "firstName": "John",
-//       "lastName": "Doe",
-//       "email": "johndoe@example.com",
-//       "password": "securePassword123",
-//       "age": 30,
-//       "isSubscribed": true
-//     }
-//   },
-// ]
+export function AppSidebar({
+  hookId,
+  ...props
+}: React.ComponentProps<typeof Sidebar> & { hookId: string }) {
+  const [requests, setRequests] = useState<WebRequest[]>([]);
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  useEffect(() => {
+    fetch(`/api/hook/${hookId}`, {
+      headers: {
+        "Content-Type": "text/event-stream",
+      },
+    }).then((res) => {
+      const reader = res.body?.getReader();
+      if (!reader) return;
+      reader.read().then(function processText({ done, value }) {
+        if (done) {
+          console.log("Stream complete");
+          return;
+        }
+        const text = new TextDecoder().decode(value);
+        const lines = text.split("\n").filter((line) => line.trim());
+        lines.forEach((line) => {
+          const req: WebRequest = JSON.parse(line);
+          setRequests((prev) => {
+            const newRequests = [req, ...prev];
+            return newRequests.slice(0, 100);
+          });
+        });
+        reader.read().then(processText);
+      });
+    });
+  }, []);
+
   return (
     <Sidebar
       collapsible="icon"
@@ -86,18 +58,19 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               Wirehook
             </div>
           </div>
-          <SidebarInput placeholder="Search..." />
+          {/* <SidebarInput placeholder="Search..." /> */}
         </SidebarHeader>
         <SidebarContent>
           <SidebarGroup className="px-0">
             <SidebarGroupContent>
-              <div className="flex w-full items-center justify-center gap-2 my-4">
-                <LoaderCircle className="w-4 h-4 animate-spin" /> Waiting for
-                your first request
-              </div>
-              {data.map((req) => (
-                <a
-                  href="#"
+              {requests.length === 0 && (
+                <div className="flex w-full items-center justify-center gap-2 my-4">
+                  <LoaderCircle className="w-4 h-4 animate-spin" /> Waiting for
+                  your first request
+                </div>
+              )}
+              {requests.map((req) => (
+                <div
                   key={req.id}
                   className="flex flex-col items-start gap-2 whitespace-nowrap border-b p-4 text-sm leading-tight last:border-b-0 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
                 >
@@ -105,12 +78,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     <span className="bg-primary text-primary-foreground p-1 rounded-md text-xs">
                       {req.method}
                     </span>
-                    <span className="border-b p-1 text-sm">{req.path}</span>
+                    <span className="border-b p-1 text-sm">
+                      {req.path.substring(0, 30)}
+                      {req.path.length > 30 ? "..." : ""}
+                    </span>
                   </div>
                   <span className="text-xs">
                     {formatTimestamp(req.timestamp)}
                   </span>
-                </a>
+                </div>
               ))}
             </SidebarGroupContent>
           </SidebarGroup>
