@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
 import {
   Sidebar,
@@ -9,66 +9,68 @@ import {
   SidebarGroupContent,
   SidebarHeader,
   SidebarInput,
-} from "@/components/ui/sidebar"
-import { formatTimestamp } from "@/lib/datetime"
+} from "@/components/ui/sidebar";
+import { formatTimestamp } from "@/lib/datetime";
+import { LoaderCircle } from "lucide-react";
 
 // This is sample data
-const data = [
-  {
-    "id": "req-1",
-    "timestamp": "2024-12-24T12:34:56Z",
-    "method": "GET",
-    "path": "/users",
-    "headers": {
-      "Content-Type": "application/json",
-      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-    },
-    "body": {
-      "firstName": "John",
-      "lastName": "Doe",
-      "email": "johndoe@example.com",
-      "password": "securePassword123",
-      "age": 30,
-      "isSubscribed": true
-    }
-  },
-  {
-    "id": "req-2",
-    "timestamp": "2024-12-24T12:34:56Z",
-    "method": "POST",
-    "path": "/users",
-    "headers": {
-      "Content-Type": "application/json",
-      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-    },
-    "body": {
-      "firstName": "John",
-      "lastName": "Doe",
-      "email": "johndoe@example.com",
-      "password": "securePassword123",
-      "age": 30,
-      "isSubscribed": true
-    }
-  },
-  {
-    "id": "req-3",
-    "timestamp": "2024-12-24T12:34:56Z",
-    "method": "PUT",
-    "path": "/users",
-    "headers": {
-      "Content-Type": "application/json",
-      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-    },
-    "body": {
-      "firstName": "John",
-      "lastName": "Doe",
-      "email": "johndoe@example.com",
-      "password": "securePassword123",
-      "age": 30,
-      "isSubscribed": true
-    }
-  },
-]
+const data: any[] = [];
+// const data = [
+//   {
+//     "id": "req-1",
+//     "timestamp": "2024-12-24T12:34:56Z",
+//     "method": "GET",
+//     "path": "/users",
+//     "headers": {
+//       "Content-Type": "application/json",
+//       "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+//     },
+//     "body": {
+//       "firstName": "John",
+//       "lastName": "Doe",
+//       "email": "johndoe@example.com",
+//       "password": "securePassword123",
+//       "age": 30,
+//       "isSubscribed": true
+//     }
+//   },
+//   {
+//     "id": "req-2",
+//     "timestamp": "2024-12-24T12:34:56Z",
+//     "method": "POST",
+//     "path": "/users",
+//     "headers": {
+//       "Content-Type": "application/json",
+//       "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+//     },
+//     "body": {
+//       "firstName": "John",
+//       "lastName": "Doe",
+//       "email": "johndoe@example.com",
+//       "password": "securePassword123",
+//       "age": 30,
+//       "isSubscribed": true
+//     }
+//   },
+//   {
+//     "id": "req-3",
+//     "timestamp": "2024-12-24T12:34:56Z",
+//     "method": "PUT",
+//     "path": "/users",
+//     "headers": {
+//       "Content-Type": "application/json",
+//       "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+//     },
+//     "body": {
+//       "firstName": "John",
+//       "lastName": "Doe",
+//       "email": "johndoe@example.com",
+//       "password": "securePassword123",
+//       "age": 30,
+//       "isSubscribed": true
+//     }
+//   },
+// ]
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
@@ -89,6 +91,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarContent>
           <SidebarGroup className="px-0">
             <SidebarGroupContent>
+              <div className="flex w-full items-center justify-center gap-2 my-4">
+                <LoaderCircle className="w-4 h-4 animate-spin" /> Waiting for
+                your first request
+              </div>
               {data.map((req) => (
                 <a
                   href="#"
@@ -96,10 +102,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   className="flex flex-col items-start gap-2 whitespace-nowrap border-b p-4 text-sm leading-tight last:border-b-0 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
                 >
                   <div className="flex w-full items-center gap-2">
-                    <span className="bg-primary text-primary-foreground p-1 rounded-md text-xs">{req.method}</span>
+                    <span className="bg-primary text-primary-foreground p-1 rounded-md text-xs">
+                      {req.method}
+                    </span>
                     <span className="border-b p-1 text-sm">{req.path}</span>
                   </div>
-                  <span className="text-xs">{formatTimestamp(req.timestamp)}</span>
+                  <span className="text-xs">
+                    {formatTimestamp(req.timestamp)}
+                  </span>
                 </a>
               ))}
             </SidebarGroupContent>
@@ -107,5 +117,5 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarContent>
       </Sidebar>
     </Sidebar>
-  )
+  );
 }
