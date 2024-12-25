@@ -95,9 +95,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   key={req.id}
                   className="flex flex-col items-start gap-2 whitespace-nowrap border-b p-4 text-sm leading-tight last:border-b-0 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
                 >
-                  <div className="flex w-full items-center gap-2">
+                  <div className="flex w-full items-center gap-2 text-sm">
                     <span className="bg-primary text-primary-foreground p-1 rounded-md">{req.method}</span>
-                    <span>{req.path}</span>
+                    <span className="border-b p-1">{req.path}</span>
                   </div>
                   <span className="text-xs">{formatTimestamp(req.timestamp)}</span>
                 </a>
