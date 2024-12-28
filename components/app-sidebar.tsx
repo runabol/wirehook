@@ -11,7 +11,6 @@ import {
 } from "@/components/ui/sidebar";
 import { formatTimestamp } from "@/lib/datetime";
 import { LoaderCircle } from "lucide-react";
-import { on } from "events";
 
 export function AppSidebar({
   hookId,

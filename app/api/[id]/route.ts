@@ -19,6 +19,4 @@ export {
   handler as PATCH,
   handler as OPTIONS,
   handler as HEAD,
-  handler as CONNECT,
-  handler as TRACE,
 };
