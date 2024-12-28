@@ -7,8 +7,18 @@ async function handler(
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
-  publish(id, toWebhookRequest(req));
+  publish(id, await toWebhookRequest(req));
   return new Response("OK");
 }
 
-export { handler as GET, handler as POST, handler as PUT, handler as DELETE };
+export {
+  handler as GET,
+  handler as POST,
+  handler as PUT,
+  handler as DELETE,
+  handler as PATCH,
+  handler as OPTIONS,
+  handler as HEAD,
+  handler as CONNECT,
+  handler as TRACE,
+};

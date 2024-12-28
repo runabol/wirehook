@@ -11,11 +11,19 @@ import {
 } from "@/components/ui/sidebar";
 import { formatTimestamp } from "@/lib/datetime";
 import { LoaderCircle } from "lucide-react";
+import { on } from "events";
 
 export function AppSidebar({
   hookId,
+  onSelected,
+  selected,
   ...props
-}: React.ComponentProps<typeof Sidebar> & { hookId: string }) {
+}: React.ComponentProps<typeof Sidebar> & {
+  hookId: string;
+
+  selected?: WebRequest;
+  onSelected: (request: WebRequest) => void;
+}) {
   const [requests, setRequests] = useState<WebRequest[]>([]);
 
   useEffect(() => {
@@ -45,6 +53,12 @@ export function AppSidebar({
     });
   }, [hookId]);
 
+  useEffect(() => {
+    if (!selected && requests.length > 0) {
+      onSelected(requests[0]);
+    }
+  }, [selected, requests]);
+
   return (
     <Sidebar
       collapsible="icon"
@@ -72,7 +86,12 @@ export function AppSidebar({
               {requests.map((req) => (
                 <div
                   key={req.id}
-                  className="flex flex-col items-start gap-2 whitespace-nowrap border-b p-4 text-sm leading-tight last:border-b-0 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+                  onClick={() => onSelected(req)}
+                  className={`flex hover:cursor-pointer flex-col items-start gap-2 whitespace-nowrap border-b p-4 text-sm leading-tight last:border-b-0 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground ${
+                    selected?.id === req.id
+                      ? "bg-sidebar-accent text-sidebar-accent-foreground"
+                      : ""
+                  }`}
                 >
                   <div className="flex w-full items-center gap-2">
                     <span className="bg-primary text-primary-foreground p-1 rounded-md text-xs">
