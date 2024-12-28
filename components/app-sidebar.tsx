@@ -43,7 +43,7 @@ export function AppSidebar({
         reader.read().then(processText);
       });
     });
-  }, []);
+  }, [hookId]);
 
   return (
     <Sidebar

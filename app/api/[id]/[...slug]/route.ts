@@ -1,7 +1,7 @@
 import { publish } from "@/lib/broker";
+import { NextRequest } from "next/server";
 import { randomUUID } from "crypto";
 import { formatDate } from "date-fns";
-import { NextRequest } from "next/server";
 
 async function handler(
   req: NextRequest,
@@ -12,7 +12,7 @@ async function handler(
     id: randomUUID(),
     timestamp: formatDate(new Date(), "yyyy-MM-dd'T'HH:mm:ssxxx"),
     method: req.method,
-    path: "/",
+    path: req.nextUrl.pathname.replace(/\/h\/[^/]+/, ""),
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${randomUUID()}`,

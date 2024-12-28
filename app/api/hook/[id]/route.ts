@@ -4,11 +4,11 @@ import { randomUUID } from "crypto";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
   const sessionId = randomUUID();
-  let responseStream = new TransformStream();
+  const responseStream = new TransformStream();
   const writer = responseStream.writable.getWriter();
   subscribe(id, sessionId, writer);
 
