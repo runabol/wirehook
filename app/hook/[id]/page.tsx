@@ -12,13 +12,17 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { formatTimestamp } from "@/lib/datetime";
-import { use, useState } from "react";
+import { use, useEffect, useState } from "react";
 
 export default function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
   const [selected, setSelected] = useState<WebRequest>();
 
-  const url = `${process.env.NEXT_PUBLIC_BASE_URL}/h/${id}`;
+  const [url, setUrl] = useState("");
+
+  useEffect(() => {
+    setUrl(`${window.location.origin}/h/${id}`);
+  }, []);
 
   return (
     <SidebarProvider
