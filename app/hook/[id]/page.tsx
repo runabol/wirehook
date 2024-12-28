@@ -2,7 +2,11 @@ import { AppSidebar } from "@/components/app-sidebar";
 import CopyButton from "@/components/copy-button";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const { id } = await params;
 
   const url = `${process.env.NEXT_PUBLIC_BASE_URL}/h/${id}`;
