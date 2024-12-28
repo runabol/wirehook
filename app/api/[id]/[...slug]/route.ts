@@ -8,7 +8,7 @@ async function handler(
 ) {
   const { id } = await params;
   publish(id, await toWebhookRequest(req));
-  return new Response("OK");
+  return new Response("");
 }
 
 export {
