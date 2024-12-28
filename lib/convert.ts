@@ -2,7 +2,7 @@ import { randomUUID } from "crypto";
 import { formatDate } from "date-fns";
 import { NextRequest } from "next/server";
 
-export function toWebhookRequest(req: NextRequest): WebRequest {
+export async function toWebhookRequest(req: NextRequest) {
   let path = req.nextUrl.pathname.replace(/\/h\/[^/]+/, "");
   if (path === "") {
     path = "/";
@@ -12,10 +12,11 @@ export function toWebhookRequest(req: NextRequest): WebRequest {
     timestamp: formatDate(new Date(), "yyyy-MM-dd'T'HH:mm:ssxxx"),
     method: req.method,
     path: path,
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${randomUUID()}`,
-    },
-    body: "",
+    hostname: req.nextUrl.hostname,
+    headers: Object.fromEntries(req.headers),
+    body: await req.text(),
+    size: req.headers.get("content-length")
+      ? Number(req.headers.get("content-length"))
+      : 0,
   };
 }
