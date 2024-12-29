@@ -56,7 +56,7 @@ An open-source, stateless, and hassle-free webhook tester. Designed to be **easy
 ## Why Stateless?
 
 By keeping the application stateless:
-- **Security**: No user data or payloads are stored, minimizing attack surfaces.
+- **Security**: Users don't need to worry about their sensitive information being stored.
 - **Performance**: Lightweight and scalable without external storage dependencies.
 - **Simplicity**: No need for database setup or configuration.
 
