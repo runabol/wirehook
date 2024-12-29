@@ -37,7 +37,6 @@ export function AppSidebar({
       if (!reader) return;
       reader.read().then(function processText({ done, value }) {
         if (done) {
-          console.log("Stream complete");
           return;
         }
         const text = new TextDecoder().decode(value);
@@ -69,14 +68,14 @@ export function AppSidebar({
       <Sidebar collapsible="none" className="hidden flex-1 md:flex">
         <SidebarHeader className="gap-3.5 p-4">
           <div className="flex w-full items-center justify-between">
-            <a href="/">
+            <Link href="/">
               <div className="text-base font-semibold text-foreground tracking-normal">
                 <span className="bg-primary text-primary-foreground px-1 py-0.5 mr-[1px] font-extralight">
                   W
                 </span>
                 irehook
               </div>
-            </a>
+            </Link>
             <Link target="_blank" href="https://github.com/runabol/wirehook">
               <FaGithub className="w-5 h-5" />
             </Link>
