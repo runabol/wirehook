@@ -35,7 +35,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
       <AppSidebar hookId={id} selected={selected} onSelected={setSelected} />
       <SidebarInset>
         {selected && (
-          <header className="flex items-center gap-2 mx-4 p-4 text-sm">
+          <header className="flex py-4 shrink-0 items-center gap-2 border-b px-4">
             <p className="font-medium bg-primary text-primary-foreground text-sm ml-2 ring-1 py-2 px-6 rounded-md ring-muted-foreground/30">
               {url}
             </p>

@@ -11,6 +11,8 @@ import {
 } from "@/components/ui/sidebar";
 import { formatTimestamp } from "@/lib/datetime";
 import { LoaderCircle } from "lucide-react";
+import { FaGithub } from "react-icons/fa";
+import Link from "next/link";
 
 export function AppSidebar({
   hookId,
@@ -65,11 +67,17 @@ export function AppSidebar({
       {...props}
     >
       <Sidebar collapsible="none" className="hidden flex-1 md:flex">
-        <SidebarHeader className="gap-3.5 border-b p-4">
+        <SidebarHeader className="gap-3.5 p-4">
           <div className="flex w-full items-center justify-between">
-            <div className="text-base font-semibold text-foreground">
-              Wirehook
+            <div className="text-base font-semibold text-foreground tracking-normal">
+              <span className="bg-primary text-primary-foreground px-1 py-0.5 mr-[1px] font-extralight">
+                W
+              </span>
+              irehook
             </div>
+            <Link target="_blank" href="https://github.com/runabol/wirehook">
+              <FaGithub className="w-5 h-5" />
+            </Link>
           </div>
           {/* <SidebarInput placeholder="Search..." /> */}
         </SidebarHeader>
