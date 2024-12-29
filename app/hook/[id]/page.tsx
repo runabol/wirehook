@@ -2,6 +2,12 @@
 
 import { AppSidebar } from "@/components/app-sidebar";
 import CopyButton from "@/components/copy-button";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+} from "@/components/ui/breadcrumb";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import {
   Table,
@@ -34,22 +40,14 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
     >
       <AppSidebar hookId={id} selected={selected} onSelected={setSelected} />
       <SidebarInset>
-        {/* <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
-          <div className="flex items-center gap-2 px-4">
-            <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="#">
-                    Webhook URL
-                    <span className="font-medium text-md ml-2 ring-1 p-2 rounded-md ring-muted-foreground/30">
-                      {url}
-                    </span>
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
-          </div>
-        </header> */}
+        {selected && (
+          <header className="flex items-center gap-2 mx-4 p-4 text-sm">
+            <p className="font-medium bg-primary text-primary-foreground text-sm ml-2 ring-1 py-2 px-6 rounded-md ring-muted-foreground/30">
+              {url}
+            </p>
+            <CopyButton url={url} />
+          </header>
+        )}
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
           {!selected && (
             <div className="min-h-[100vh] flex-col flex justify-center items-center  rounded-xl bg-muted/50">
@@ -116,7 +114,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                       <TableBody>
                         {Object.keys(selected.headers).map((header) => (
                           <TableRow key={header}>
-                            <TableCell className="font-medium w-1/3">
+                            <TableCell className="font-medium w-1/3 whitespace-nowrap">
                               {header}
                             </TableCell>
                             <TableCell>{selected.headers[header]}</TableCell>
