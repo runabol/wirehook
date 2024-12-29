@@ -48,7 +48,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
               <p className="text-center text-xl my-4 font-bold">
                 Your unique URL
               </p>
-              <p className="md:px-48 mb-6 text-center text-base text-muted-foreground">
+              <p className="px-4 max-w-[720px] mb-6 text-center text-base text-muted-foreground">
                 Simply configure your application to send events to your unique
                 URL, and any incoming requests will appear right here on this
                 page for you to view and analyze.
