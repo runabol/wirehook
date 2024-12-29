@@ -69,12 +69,14 @@ export function AppSidebar({
       <Sidebar collapsible="none" className="hidden flex-1 md:flex">
         <SidebarHeader className="gap-3.5 p-4">
           <div className="flex w-full items-center justify-between">
-            <div className="text-base font-semibold text-foreground tracking-normal">
-              <span className="bg-primary text-primary-foreground px-1 py-0.5 mr-[1px] font-extralight">
-                W
-              </span>
-              irehook
-            </div>
+            <Link href={"/"}>
+              <div className="text-base font-semibold text-foreground tracking-normal">
+                <span className="bg-primary text-primary-foreground px-1 py-0.5 mr-[1px] font-extralight">
+                  W
+                </span>
+                irehook
+              </div>
+            </Link>
             <Link target="_blank" href="https://github.com/runabol/wirehook">
               <FaGithub className="w-5 h-5" />
             </Link>

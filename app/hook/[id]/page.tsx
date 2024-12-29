@@ -62,7 +62,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
             </div>
           )}
           {selected && (
-            <div className="m-4">
+            <div>
               <div className="flex flex-col gap-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
