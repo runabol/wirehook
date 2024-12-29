@@ -2,12 +2,6 @@
 
 import { AppSidebar } from "@/components/app-sidebar";
 import CopyButton from "@/components/copy-button";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-} from "@/components/ui/breadcrumb";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import {
   Table,
@@ -134,8 +128,9 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                     <TableRow>
                       <TableCell>
                         <pre className="whitespace-pre-wrap">
-                          {selected.headers["content-type"] ===
-                          "application/json" ? (
+                          {selected.headers["content-type"]?.includes(
+                            "application/json"
+                          ) ? (
                             <pre className="whitespace-pre-wrap">
                               {JSON.stringify(
                                 JSON.parse(selected.body),
