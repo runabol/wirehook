@@ -4,7 +4,7 @@ PROJECT_VERSION ?= $(shell jq -r '.version' package.json)
 
 .PHONY: docker-build
 docker-build:
-	docker build -t runabol/${PROJECT_NAME}:$(PROJECT_VERSION) .
+	docker build --platform linux/amd64,linux/arm64 -t runabol/${PROJECT_NAME}:$(PROJECT_VERSION) .
 
 .PHONY: docker-push
 docker-push:
