@@ -28,7 +28,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
     <SidebarProvider
       style={
         {
-          "--sidebar-width": "350px",
+          "--sidebar-width": "300px",
         } as React.CSSProperties
       }
     >
@@ -44,7 +44,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
         )}
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
           {!selected && (
-            <div className="min-h-[100vh] flex-col flex justify-center items-center  rounded-xl bg-muted/50">
+            <div className="min-h-[100vh] flex-col flex justify-center items-center">
               <p className="text-center text-xl my-4 font-bold">
                 Your unique URL
               </p>
