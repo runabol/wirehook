@@ -17,7 +17,6 @@ import { use, useEffect, useState } from "react";
 export default function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
   const [selected, setSelected] = useState<WebRequest>();
-
   const [url, setUrl] = useState("");
 
   useEffect(() => {

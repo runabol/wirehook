@@ -21,11 +21,11 @@ export function AppSidebar({
   ...props
 }: React.ComponentProps<typeof Sidebar> & {
   hookId: string;
-
   selected?: WebRequest;
   onSelected: (request: WebRequest) => void;
 }) {
   const [requests, setRequests] = useState<WebRequest[]>([]);
+  const [totalRequests, setTotalRequests] = useState(0);
 
   useEffect(() => {
     fetch(`/api/hook/${hookId}`, {
@@ -43,6 +43,7 @@ export function AppSidebar({
         const lines = text.split("\n").filter((line) => line.trim());
         lines.forEach((line) => {
           const req: WebRequest = JSON.parse(line);
+          setTotalRequests(req.serial);
           setRequests((prev) => {
             const newRequests = [req, ...prev];
             return newRequests.slice(0, 100);
@@ -81,6 +82,9 @@ export function AppSidebar({
             </Link>
           </div>
           {/* <SidebarInput placeholder="Search..." /> */}
+          <span className="text-xs font-semibold mt-4 pb-2 border-b">
+            REQUESTS ({totalRequests})
+          </span>
         </SidebarHeader>
         <SidebarContent>
           <SidebarGroup className="px-0">
