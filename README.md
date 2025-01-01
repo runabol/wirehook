@@ -5,10 +5,10 @@ An open-source, stateless, and hassle-free webhook tester. Designed to be **easy
 ## Features
 
 - **Stateless**: No data is stored on the server. Fully ephemeral by design.
-- **Simple Installation**: One single Docker image is all you need to get started.
-- **Unlimited Requests**: No caps or restrictions on the number of requests.
-- **Self-Host Friendly**: Host it on your own infrastructure effortlessly.
-- **No Nonsense**: Minimal setup and overhead.
+- **Simple installation**: One single Docker image is all you need to get started.
+- **Unlimited requests**: No caps or restrictions on the number of requests.
+- **Self-Hostable**: Host it on your own infrastructure effortlessly.
+- **No nonsense**: Minimal setup and overhead.
 - **Open Source**: Released under the permissive MIT License.
 
 ## Installation
@@ -63,9 +63,3 @@ By keeping the application stateless:
 ## License
 
 This project is licensed under the [MIT License](LICENSE). Feel free to use, modify, and distribute it as you see fit.
-
-### Acknowledgments
-
-[Next.js](https://nextjs.org/).
-
-
