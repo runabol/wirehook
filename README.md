@@ -2,6 +2,8 @@
 
 An open-source, stateless, and hassle-free webhook tester. Designed to be **easy to use**, **secure**, and **lightweight**. Perfect for debugging and testing webhook integrations with zero dependencies on external databases or storage.
 
+![Screenshot](screenshot.png)
+
 ## Features
 
 - **Stateless**: No data is stored on the server. Fully ephemeral by design.
