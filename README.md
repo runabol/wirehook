@@ -2,7 +2,9 @@
 
 An open-source, stateless, and hassle-free webhook tester. Designed to be **easy to use**, **secure**, and **lightweight**. Perfect for debugging and testing webhook integrations with zero dependencies on external databases or storage.
 
-![Screenshot](screenshot.png)
+<div style="border: 1px solid #ccc; border-radius: 8px; display: inline-block; overflow: hidden;">
+  <img src="screenshot.png" alt="Screenshot" style="" />
+</div>
 
 ## Features
 
