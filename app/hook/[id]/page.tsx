@@ -2,6 +2,7 @@
 
 import { AppSidebar } from "@/components/app-sidebar";
 import CopyButton from "@/components/copy-button";
+import RequestMethodBadge from "@/components/request-method-badge";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import {
   Table,
@@ -74,9 +75,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                       <TableBody>
                         <TableRow>
                           <TableCell className="w-1/3">
-                            <span className="bg-primary text-primary-foreground p-1 rounded-md text-xs">
-                              {selected.method}
-                            </span>
+                            <RequestMethodBadge method={selected.method} />
                           </TableCell>
                           <TableCell>{selected.path}</TableCell>
                         </TableRow>
