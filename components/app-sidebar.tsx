@@ -11,8 +11,9 @@ import {
 } from "@/components/ui/sidebar";
 import { formatTimestamp } from "@/lib/datetime";
 import { LoaderCircle } from "lucide-react";
-import { FaGithub } from "react-icons/fa";
+import { FaGithub, FaTrash } from "react-icons/fa";
 import Link from "next/link";
+import RequestMethodBadge from "./request-method-badge";
 
 export function AppSidebar({
   hookId,
@@ -43,7 +44,9 @@ export function AppSidebar({
         const lines = text.split("\n").filter((line) => line.trim());
         lines.forEach((line) => {
           const req: WebRequest = JSON.parse(line);
-          setTotalRequests(req.serial);
+          setTotalRequests((prev) => {
+            return prev + 1;
+          });
           setRequests((prev) => {
             const newRequests = [req, ...prev];
             return newRequests.slice(0, 100);
@@ -99,24 +102,38 @@ export function AppSidebar({
                 <div
                   key={req.id}
                   onClick={() => onSelected(req)}
-                  className={`flex hover:cursor-pointer flex-col items-start gap-2 whitespace-nowrap border-b p-4 text-sm leading-tight last:border-b-0 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground ${
+                  className={`group/request flex hover:cursor-pointer flex-col items-start gap-2 whitespace-nowrap border-b p-4 text-sm leading-tight last:border-b-0 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground ${
                     selected?.id === req.id
                       ? "bg-sidebar-accent text-sidebar-accent-foreground"
                       : ""
                   }`}
                 >
                   <div className="flex w-full items-center gap-2">
-                    <span className="bg-primary text-primary-foreground p-1 rounded-md text-xs">
-                      {req.method}
-                    </span>
+                    <RequestMethodBadge method={req.method} />
                     <span className="border-b p-1 text-sm">
                       {req.path.substring(0, 30)}
                       {req.path.length > 30 ? "..." : ""}
                     </span>
                   </div>
-                  <span className="text-xs">
-                    {formatTimestamp(req.timestamp)}
-                  </span>
+                  <div className="flex justify-between w-full items-center">
+                    <span className="text-xs align-right">
+                      {formatTimestamp(req.timestamp)}
+                    </span>
+                    <span>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setRequests((prev) =>
+                            prev.filter((r) => r.id !== req.id)
+                          );
+                          setTotalRequests((prev) => prev - 1);
+                        }}
+                        className="text-xs opacity-0 group-hover/request:opacity-100 hover:text-red-500 transition-opacity"
+                      >
+                        <FaTrash className="w-3 h-3" />
+                      </button>
+                    </span>
+                  </div>
                 </div>
               ))}
             </SidebarGroupContent>
